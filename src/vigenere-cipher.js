@@ -1,4 +1,4 @@
-const { NotImplementedError } = require('../lib');
+const { NotImplementedError } = require("../lib");
 
 /**
  * Implement class VigenereCipheringMachine that allows us to create
@@ -20,14 +20,14 @@ const { NotImplementedError } = require('../lib');
  *
  */
 class VigenereCipheringMachine {
-  encrypt() {
+  encrypt(message, key) {
     // Remove line below and write your code here
-    throw new NotImplementedError('Not implemented');
+    throw new NotImplementedError("Not implemented");
   }
 
-  decrypt() {
+  decrypt(encryptedMessage, key) {
     // Remove line below and write your code here
-    throw new NotImplementedError('Not implemented');
+    throw new NotImplementedError("Not implemented");
   }
 }
 

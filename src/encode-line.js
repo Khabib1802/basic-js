@@ -1,4 +1,4 @@
-const { NotImplementedError } = require('../lib');
+const { NotImplementedError } = require("../lib");
 
 /**
  * Given a string, return its encoding version.
@@ -11,11 +11,23 @@ const { NotImplementedError } = require('../lib');
  *
  */
 
-function encodeLine(/* str */) {
-  // Remove line below and write your code here
-  throw new NotImplementedError('Not implemented');
+function encodeLine(str) {
+  let encode = "";
+
+  for (let i = 0; i < str.length; i += 1) {
+    let letterCount = 1;
+
+    while (str[i] === str[i + 1]) {
+      letterCount += 1;
+      i += 1;
+    }
+
+    encode += letterCount > 1 ? `${letterCount}${str[i]}` : `${str[i]}`;
+  }
+
+  return encode;
 }
 
 module.exports = {
-  encodeLine
+  encodeLine,
 };
