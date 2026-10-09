@@ -12,12 +12,10 @@ const { NotImplementedError } = require("../lib");
  * The result should be [-1, 150, 160, 170, -1, -1, 180, 190]
  */
 function sortByHeight(arr) {
-  arr.sort((a, b) => {
-    if (a > 1 || b > 1) {
-      a - b;
-    }
-  });
-  return arr;
+  const filtered = arr.filter((x) => x !== -1);
+  const sorted = filtered.sort((a, b) => b - a);
+
+  return arr.map((x) => (x === -1 ? x : sorted.pop()));
 }
 
 module.exports = {
