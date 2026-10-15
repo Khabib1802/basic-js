@@ -20,14 +20,81 @@ const { NotImplementedError } = require("../lib");
  *
  */
 class VigenereCipheringMachine {
+  reverse = false;
+
+  constructor(direct) {
+    if (direct === false) {
+      this.reverse = true;
+    }
+  }
+
   encrypt(message, key) {
-    // Remove line below and write your code here
-    throw new NotImplementedError("Not implemented");
+    if (!message || !key) throw new Error("Incorrect arguments!");
+    const upperMessage = message.toUpperCase();
+    const upperKey = key.toUpperCase();
+
+    let result = "";
+
+    let index = 0;
+    for (let char of upperMessage) {
+      if (/[A-Z]/.test(char)) {
+        if (index > upperKey.length - 1) index = 0;
+        result += this.getEncryptedLetter(char, upperKey[index]);
+        index++;
+      } else {
+        result += char;
+      }
+    }
+
+    if (this.reverse) return result.split("").reverse().join("");
+
+    return result;
   }
 
   decrypt(encryptedMessage, key) {
-    // Remove line below and write your code here
-    throw new NotImplementedError("Not implemented");
+    if (!encryptedMessage || !key) throw new Error("Incorrect arguments!");
+    const upperMessage = encryptedMessage.toUpperCase();
+    const upperKey = key.toUpperCase();
+
+    let result = "";
+
+    let index = 0;
+    for (let char of upperMessage) {
+      if (/[A-Z]/.test(char)) {
+        if (index > upperKey.length - 1) index = 0;
+        result += this.getSourceLetter(char, upperKey[index]);
+        index++;
+      } else {
+        result += char;
+      }
+    }
+
+    if (this.reverse) return result.split("").reverse().join("");
+
+    return result;
+  }
+
+  getEncryptedLetter(sourceLetter, keyLetter) {
+    const shift = "A".charCodeAt(0);
+
+    const sourceLetterNumber = sourceLetter.toUpperCase().charCodeAt(0) - shift;
+    const keyLetterNumber = keyLetter.toUpperCase().charCodeAt(0) - shift;
+
+    const encryptedLetterNumber = (sourceLetterNumber + keyLetterNumber) % 26;
+    return String.fromCharCode(encryptedLetterNumber + shift);
+  }
+
+  getSourceLetter(encryptedLetter, keyLetter) {
+    const shift = "A".charCodeAt(0);
+
+    const encryptedLetterNumber =
+      encryptedLetter.toUpperCase().charCodeAt(0) - shift;
+    const keyLetterNumber = keyLetter.toUpperCase().charCodeAt(0) - shift;
+
+    let sourceLetterNumber = (encryptedLetterNumber - keyLetterNumber) % 26;
+
+    if (sourceLetterNumber < 0) sourceLetterNumber += 26;
+    return String.fromCharCode(sourceLetterNumber + shift);
   }
 }
 
